@@ -11,7 +11,7 @@ if __name__ == '__main__':
     try:
         logger.info(f"Starting>>>> {STAGE_NAME}")
         data_ingestion_pipeline = DataIngestionTrainingPipeline()
-        data_ingestion_pipeline.main()
+        data_ingestion_pipeline.start()
         logger.info(f"Completed {STAGE_NAME}")
         logger.info(f"Starting>>>> {STAGE_NAME}")
         data_ingestion_pipeline = DataValidationPipeline()

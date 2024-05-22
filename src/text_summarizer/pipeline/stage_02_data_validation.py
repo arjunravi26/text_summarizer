@@ -8,10 +8,8 @@ class DataValidationPipeline:
         pass
     
     def start(self):
-        try:
-            config = ConfigurationManager()
-            data_validation_config = config.get_data_validation_config()
-            data_validation = DataValiadtion(config=data_validation_config)
-            data_validation.validate_all_files_exist()
-        except Exception as e:
-            raise e
+        config = ConfigurationManager()
+        data_validation_config = config.get_data_validation_config()
+        data_validation = DataValiadtion(config=data_validation_config)
+        data_validation.validate_all_files_exist()
+    
