@@ -13,7 +13,6 @@ class ModelTrainer:
     def train(self):
         # device = "cuda" if torch.cuda.is_available() else "cpu"
         device = "cpu"
-        torch.cuda.empty_cache()
         print(device)
         
         # Load tokenizer and model
@@ -21,7 +20,7 @@ class ModelTrainer:
         model_pegasus = AutoModelForSeq2SeqLM.from_pretrained(self.config.model_ckpt).to(device)
         
         # Enable gradient checkpointing
-        model_pegasus.gradient_checkpointing_enable()
+        # model_pegasus.gradient_checkpointing_enable()
         
         # Data collator
         seq2seq_data_collator = DataCollatorForSeq2Seq(tokenizer, model=model_pegasus)
