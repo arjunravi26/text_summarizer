@@ -1,6 +1,10 @@
 # text_summarizer
 NLP end-end project for text summarizer
 
+## Description
+
+It is a text summarization project using Pegasus(Google pre-trained model) with SAMsum dataset
+
 ## Workflow
 
 1. Updata config.yaml
