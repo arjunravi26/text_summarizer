@@ -1,7 +1,7 @@
 from src.text_summarizer.constant import *
 from src.text_summarizer.utils.common import read_yaml, create_directories
 from src.text_summarizer.entity import DataIngestionConfig
-from src.text_summarizer.entity import DataValidationConfig,DataTransformationConfig
+from src.text_summarizer.entity import DataValidationConfig,DataTransformationConfig,ModelTrainerConfig,ModelEvaluationConfig
 
 
 class ConfigurationManager:
@@ -54,7 +54,50 @@ class ConfigurationManager:
 
         return data_transformation_config
     
+    
+    def get_model_trainer_config(self) -> ModelTrainerConfig:
+        config = self.config.model_trainer
+        params = self.params.TrainingArguments
 
+        create_directories([config.root_dir])
+
+        model_trainer_config = ModelTrainerConfig(
+            root_dir=Path(config['root_dir']),
+            data_path=Path(config['data_path']),
+            model_ckpt=config['model_ckpt'],
+            num_train_epochs=int(params['num_train_epochs']),
+            warmup_steps=int(params['warmup_steps']),
+            per_device_train_batch_size=int(params['per_device_train_batch_size']),
+            weight_decay=float(params['weight_decay']),
+            logging_steps=int(params['logging_steps']),
+            evaluation_strategy=params['evaluation_strategy'],
+            eval_steps=int(params['eval_steps']),
+            save_steps=int(float(params['save_steps'])),
+            gradient_accumulation_steps=int(params['gradient_accumulation_steps'])
+        )
+
+
+
+        return model_trainer_config
+    
+    def get_model_evaluation_config(self) -> ModelEvaluationConfig:
+        config = self.config.model_evaluation
+
+        create_directories([config.root_dir])
+
+        model_evaluation_config = ModelEvaluationConfig(
+            root_dir=config.root_dir,
+            data_path=config.data_path,
+            model_path = config.model_path,
+            tokenizer_path = config.tokenizer_path,
+            metric_file_name = config.metric_file_name
+           
+        )
+
+        return model_evaluation_config
+
+
+    
 
 
                             
